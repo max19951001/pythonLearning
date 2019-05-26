@@ -596,3 +596,19 @@ d = {key1 : value1, key2 : value2 }
         print(key,value)
     ```
 
+## 5 . enumerate() 枚举
+
+enumerate() 函数用于将一个可遍历的数据对象(如列表、元组或字符串)组合为一个索引序列，同时列出数据和数据下标，一般用在 for 循环当中。
+
+```python
+list = ["max",1,[28.'ajsj']]
+for x,y in enumerate(list):
+	print(x,y)
+    
+ result:
+    0 max
+	1 1
+	2 [28, 'ajsj']
+
+```
+
