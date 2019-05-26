@@ -1,4 +1,4 @@
-1.  字符串
+# 1. 字符串
 
 **定义字符串：双引号或者单引号中的数据，即字符串。**
 
@@ -9,6 +9,9 @@
 ``` python
 name = "max"
 print(name)
+print("max")
+
+print(name,end="")
 print("max")
 ```
 
@@ -538,6 +541,10 @@ d = {key1 : value1, key2 : value2 }
   print(dict["name"])# 访问对应的值
   dict["name"] = "rose"# 修改键对应的值
   dict["weight"]=180 # 增加键值
+  
+  dict["hello"] # 访问没有键的元素就会报错
+  dict.get("hello") # 没有取出值，但不会报错
+  dict.get("hello",172) # 没有hello键值，则会自动赋值为172
   ```
 
   
@@ -571,3 +578,21 @@ d = {key1 : value1, key2 : value2 }
     ```
 
     
+
+* ### 字典常见操作
+
+  * len() 测试字典中键值对的个数
+
+  * keys() 返回键的列表
+
+  * values( ) 返回values值
+
+  * items() 返回一个包含所有(键，值)元组的列表
+
+    ```python
+    dict = {"name":"max","age":24}
+    temp = dict.items()
+    for key,value in temp:
+        print(key,value)
+    ```
+
