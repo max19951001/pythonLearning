@@ -137,3 +137,136 @@ result :<__main__.Car object at 0x000002ACA42CD630>
 
 ## 1.6 烤地瓜 面向对象方法应用
 
+### 1.6.1  示例属性：
+
+>cookedLevel:这是数字；0~3表示还是生的，超过3表示半生不熟，超过5表示已经烤好了，超过8表示已经烤成木炭了！我i们的地瓜开始时是生的。
+>
+>cookedString:这是字符串；描述地瓜的生熟程度
+>
+>condiments :这是地瓜的配料列表，比如番茄酱，芥末酱。
+
+### 1.6.2 示例方法
+
+> 1 cook() : 把地瓜烤一段时间
+>
+> 2 addCondiments(): 给地瓜添加配料
+>
+> 3(__init__) ：设置默认的属性
+>
+> 4 str：让print的结果看起来更好一些
+
+```python
+# coding=utf-8
+
+
+class SweetPotato: # 定义地瓜类
+
+    # 初始化，用来设置默认的属性
+    def __init__(self):
+        self.cookedLevel = 0
+        self.cookedString = '生的'
+        self.condiments = []
+                
+    # 定制print打印这个对象的时候 显示的内容
+    def __str__(self):
+        msg = '您的地瓜已经处于 ' + self.cookedString
+        if len(self.condiments) > 0:
+            msg += ' ,添加的佐料为'
+        for temp in self.condiments:
+            msg = msg + temp + ", "
+        msg = msg.strip(', ')
+        return msg
+       
+    # 用火去烤地瓜
+    def cook(self, time):
+        self.cookedLevel += time
+        if self.cookedLevel > 8:
+            self.cookedString = '烤糊了'
+        elif self.cookedLevel > 5:
+            self.cookedString = '熟了'
+        elif self.cookedLevel> 3:
+            self.cookedString = '半生不熟'
+        else:
+            self.cookedString = '生的'
+                     
+    def addCondiments(self ,temp):
+        self.condiments.append(temp)
+
+
+digua = SweetPotato()  # 创建一个地瓜对象
+print(digua)
+# print(digua.condiments)
+# print(digua.cookedLevel)
+# print(digua.cookedString)
+print('-----------接下来开始  烤------------')
+print('------烤两分钟-------------------------')
+digua.cook(2)
+print(digua)
+print('-------又烤了两分钟------------')
+digua.cook(2)
+print(digua)
+
+print('--------添加番茄酱----------')
+digua.addCondiments('番茄酱')
+print(digua)
+
+print('--------添加沙拉酱----------')
+digua.addCondiments('沙拉酱')
+print(digua)
+```
+
+
+
+#### 注意：尽量别直接更改对象的属性。推荐用方法更改对象属性
+
+## 1.7  存放家具
+
+ ```python
+# coding=utf-8
+
+
+class Home:  # 定一个家类：home
+
+    def __init__(self, area):
+        self.area = area
+        self.rongNaList = []
+
+    def __str__(self):
+        msg = '家当前的可用面积为 ： ' + str(self.area)
+        return msg
+
+    def containItem(self, item):
+        bedArea = item.getBedArea()
+        if self.area > bedArea:
+            self.rongNaList.append(item)
+            self.area -= bedArea
+            print('当前添加物品成功。。。当前家可用面积为：%d' % self.area)
+            
+
+class Bed:  # 定义一个床类：bed
+
+    def __init__(self,  area, name):
+        self.area = area
+        self.name = name
+
+    def __str__(self):
+        msg = self.name + '占用的面积为: ' + str(self.area)
+        return msg
+
+    def getBedAre(self):
+        return self.area
+    
+    def getBedName(self):
+        return self.name
+
+
+home = Home(180)
+print(home)
+bed = Bed("4", "席梦思床")
+print(bed)
+
+home.containItem(bed)
+print(home)
+
+ ```
+
