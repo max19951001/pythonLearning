@@ -72,3 +72,68 @@ print(xiaoGou.weight)
 print(xiaoGou.color)
 ```
 
+
+
+## 1.4 self
+
+* self理解为自己，在python中指的是类的对象
+
+* 某个对象调用其对象时，python解释器会把这个对象作为第一个参数传递给self,所以开发者只需传递后面的参数即可。
+
+  
+
+## 1.5  str方法
+
+str 方法用于打印具体的内容。
+
+**python中当使用print输出对象的时候，只要自己定义了str（self)方法，那么就会打印从在这个方法中return的数据。**
+
+```python
+# python中当使用print输出对象的时候，只要自己定义了__str__（self)方法，那么就会打印从在这个方法中return的数据。
+
+# 1第一种情况
+# 定义类Car,加上str方法
+class Car:
+    
+    def __init__(self,newWheelNum,newColor):
+        self.wheelNum = newWheelNum
+        self.color = newColor
+    
+    def __str__(self):
+        msg = '嘿，我的颜色是'+self.color+'我有'+str(self.wheelNum)+'个轮胎'
+        return msg # return 返回的是字符串
+    def move(self):
+        print("车再跑")
+
+        
+# 实例对象BMW
+BMW = Car(4,"黑色")
+print(BMW)
+
+
+result :嘿，我的颜色是黑色我有4个轮胎
+    
+
+# 2 第二种情况
+# 定义类Car,不加str方法
+
+class Car:
+    
+    def __init__(self,newWheelNum,newColor):
+        self.wheelNum = newWheelNum
+        self.color = newColor
+    def move(self):
+        print("车再跑")
+
+        
+# 实例对象BMW
+BMW = Car(4,"黑色")
+print(BMW)
+
+result :<__main__.Car object at 0x000002ACA42CD630>   
+```
+
+
+
+## 1.6 烤地瓜 面向对象方法应用
+
