@@ -156,7 +156,7 @@ result :<__main__.Car object at 0x000002ACA42CD630>
 > 4 str：让print的结果看起来更好一些
 
 ```python
-# coding=utf-8
+# encoding=utf-8
 
 
 class SweetPotato: # 定义地瓜类
