@@ -372,3 +372,145 @@ result:
 
 ```
 
+## 1.4 重写父类的方法
+
+####  * 所谓重写，就是在之类中，有一个和父类相同名字的方法，在子类中的方法会覆盖掉父类中同名的方法
+
+```python
+# coding=utf-8
+
+
+class Animal(object):
+
+    def bark(self):
+        print("啊啊啊啊。。。。")
+
+
+class Cat(Animal):
+
+    def bark(self):
+        # 调用父类的这个方法
+        Animal.bark(self)  # 调用父类的方法叫做重写，注意加上self
+        # 调用上一级父亲的方法
+        super().bark()    # 同样调用上一级父类的方法，不用加self
+        print("喵喵。。。")
+
+
+tom = Cat()
+tom.bark()
+
+
+result:
+    啊啊啊啊。。。。
+	啊啊啊啊。。。。
+	喵喵。。。
+```
+
+## 1.5 多继承
+
+* **多继承即继承多个类**
+
+```python
+# coding=utf-8
+
+
+class A(object):
+
+    def testA(self):
+        print("------------a test")
+
+
+class B(object):
+
+    def testB(self):
+        print("--------------b test")
+
+
+class C(A, B):
+    pass
+
+
+c = C()
+c.testA()
+c.testB()
+
+result:
+    ------------a test
+--------------b test
+
+
+
+# 广度遍历
+# 广度遍历
+class Base(object):
+
+    def test(self):
+        print('---------base test')
+
+
+class A(Base):
+
+    def test2(self):
+        print("------------a test")
+
+
+class B(Base):
+
+    def test2(self):
+        print("--------------b test")
+
+
+class C(A, B):
+    pass
+
+
+c = C()
+c.test()
+
+print(C.__mro__) # 可以查看C类的对象搜索方法时的先后顺序
+
+result:
+    ---------base test
+(<class '__main__.C'>, <class '__main__.A'>, <class '__main__.B'>, <class '__main__.Base'>, <class 'object'>)
+    
+#广度遍历，先遍历兄弟父类，然后爷爷类
+```
+
+## 1.6 多态
+
+**”多态“是指调用的方法是同一个，但是执行的代码或者说 现象不一样**
+
+```python
+class Animal(object):
+
+    def bark(self):
+        print('啊啊啊。。。')
+
+
+class Dog(Animal):
+
+    def bark(self):
+        print('汪汪汪。。。')
+
+
+class Cat(Animal):
+
+    def bark(self):
+        print('喵喵喵。。。')
+
+
+def animalBark(temp):
+    temp.bark()
+
+
+maomi = Cat()
+wangcai = Dog()
+animalBark(maomi)
+animalBark(wangcai)
+
+result:
+    喵喵喵。。。
+	汪汪汪。。。
+# 同时调用bark()方法，但是不同对象其bark和父类的方法名一样，但作用不一样。所以输出的也不一样
+```
+
