@@ -625,6 +625,22 @@ except (IOError,NameError):  # ()里面为多个异常
       print(variable)
   ```
 
+* **当然，错误不止一个，所以有多个except语句来捕获错误**
+
+  ```python
+  try:
+      print('try...')
+      r = 10 / int('a')
+      print('result:', r)
+  except ValueError as e:
+      print('ValueError:', e)
+  except ZeroDivisionError as e:
+      print('ZeroDivisionError:', e)
+  finally:
+      print('finally...')
+  print('END')
+  ```
+
   
 
 ### try ...finally
@@ -645,7 +661,9 @@ finally:
 
 ## 1.9 抛出异常(人为引发异常)
 
-**用raise语句来引发一个异常。异常/错误对象必须有一个名字，且它们应该是Error或者Exception类的子类。**
+* **因为错误是class，捕获一个错误就是捕获到该class的一个实例。因此，错误并不是凭空产生的，而是有意创建并抛出的。Python的内置函数会抛出很多类型的错误，我们自己编写的函数也可以抛出错误**
+
+* **用raise语句来引发一个异常。异常/错误对象必须有一个名字，且它们应该是Error或者Exception类的子类。**
 
 ```python
 # coding=utf-8
