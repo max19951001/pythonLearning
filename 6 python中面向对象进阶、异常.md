@@ -478,7 +478,13 @@ result:
 
 ## 1.6 多态
 
-**”多态“是指调用的方法是同一个，但是执行的代码或者说 现象不一样**
+* **”多态“是指调用的方法是同一个，但是执行的代码或者说 现象不一样****
+
+* **当子类和父类都存在相同的`bark()`方法时，我们说，子类的`bark()覆盖了父类的`bark()`，在代码运行的时候，总是会调用子类的`bark()`。这样，我们就获得了继承的另一个好处：多态**
+
+
+
+* 有了继承，才能有多态
 
 ```python
 class Animal(object):
@@ -512,5 +518,169 @@ result:
     喵喵喵。。。
 	汪汪汪。。。
 # 同时调用bark()方法，但是不同对象其bark和父类的方法名一样，但作用不一样。所以输出的也不一样
+```
+
+## 1. 7 类属性和类方法
+
+### 类属性
+
+**在类和类中方法中定义的属性称为类属性。**
+
+* 这个属性属于类属性，存储在类的内存空间中
+
+* 在方法中的属性称为实例对象的属性，存储在实例的内存空间
+
+  注意：**类对象和实例对象都可以访问类属性**，
+
+**如果实例对象中没有和类属性同名的属性，就会去访问类属性。**
+
+ **类对象也不能访问实例对象中的属性,即你没有对象，怎么做对象该做的事情。哈哈**
+
+```python
+ # coding=utf-8
+
+
+class People(object):
+    address = '山东'
+
+    def __init__(self):
+        self.name ='hello'
+        self.age = '18'
+
+
+people = People()
+print(people.age)
+print(people.address)
+print(People.address)
+print('*'*50)
+print(People.age)
+
+
+result:
+    山东
+	山东
+		**************************************************
+  File "D:/untitled/max.py", line 17, in <module>
+    print(People.age)
+AttributeError: type object 'People' has no attribute 'age'
+
+```
+
+## 类方法
+
+在方法 前面加上'@classmethod'
+
+#### 重要：
+
+* **类对象，可以调用类属性，也可以调用类方法， 但类对象不能调用实例方法和实例属性**
+* **实例对象可以获取实例和类的属性值，但实例对象只能修改实例属性，不能修改类属性，也可以调用实例方法和类方法。**
+
+```python
+class People(object):
+    address = '山东'
+
+    def __init__(self):
+        self.name = 'hello'
+        self.age = '18'
+
+    @classmethod  #类方法可以修改类属性
+    def setNewAddress(cls):
+        cls.address = '内蒙古'
+
+
+people = People()
+People.setNewAddress()
+print(People.address)
+print(people.setNewAddress())
+
+resultr:内蒙古
+    	内蒙古
+```
+
+## 1.8 异常
+
+当python监测到一个错误时，解释器无法执行代码，则会抛出一个异常。
+
+```python
+try:
+    
+    可能出错的代码块
+    
+except (IOError,NameError):  # ()里面为多个异常 
+    如果捕获到异常，则执行。。
+    
+```
+
+**注意：一般处理流程是发生错误了，然后将可能出现错误的代码放到try中。**
+
+* 为了保留系统给的系统错误信息，则在except 后面加上as:
+
+  ```python
+  try:
+      
+      可能出错的代码块
+      
+  except (IOError,NameError) as variable:  # ()里面为多个异常 
+      如果捕获到异常，则执行。。
+      print(variable)
+  ```
+
+  
+
+### try ...finally
+
+**不管捕获到异常还是没捕获掉，都执行finally .作用是一旦发生错误，程序可能崩溃，所以执行finally。**
+
+```python
+try:
+    num = 100
+    print(num)
+except (NameError) as errorMsg :
+    print('产生了错误%s' %errorMsg)
+else:
+    print('没有捕获到异常')
+finally:
+    print('我一定会执行的')
+```
+
+## 1.9 抛出异常(人为引发异常)
+
+**用raise语句来引发一个异常。异常/错误对象必须有一个名字，且它们应该是Error或者Exception类的子类。**
+
+```python
+# coding=utf-8
+
+
+class ShortInputException(Exception):
+    '''
+    定义的异常类
+    '''
+
+    def __init__(self, length, atleast):
+        Exception.__init__(self)
+        self.length = length
+        self.atleast = atleast
+
+
+try:
+    s = input('请输入 --->')
+
+    if len(s) < 3:
+        # raise引发一个你定义的异常
+        raise ShortInputException(len(s), 3)
+
+
+except EOFError:
+    print('你输入了一个结束标志EOF')
+except ShortInputException as x:
+    print('ShortInputException:输入的长度是 %d,长度至少应是 %d' % (x.length, x.atleast))
+else:
+    print('没有异常发生')
+
+    
+result:
+    
+    请输入 --->22
+ShortInputException:输入的长度是 2,长度至少应是 3
 ```
 
